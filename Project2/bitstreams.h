@@ -15,6 +15,6 @@ public:
 private:
 	unsigned char buffer{ 0 };
 	int position{ 0 };
-	std::ifstream* file;
+	std::fstream* file;
 };
 
