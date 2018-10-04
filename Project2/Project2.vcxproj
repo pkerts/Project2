@@ -121,10 +121,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="bitstreams.h" />
+    <ClInclude Include="Heap.h" />
     <ClInclude Include="huff.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitstreams.cpp" />
+    <ClCompile Include="Heap.cpp" />
     <ClCompile Include="huff.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,4 +1,5 @@
 #include "huff.h"
+#include "Heap.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -81,6 +82,15 @@ int main(int argc, char** argv) // The compiled code will take an argument
 
 	Huff huff(filename); // Create Huff object using the argv. It goes argv > string > file opened
 	huff.BuildFrequencyTable(); // Build our frequency table using the text file provided in the bash command line argument and passed to Huff ctor
+
+	Heap<int, int> heap;
+	heap.push();
+	heap.push();
+	heap.push();
+	heap.push();
+	heap.push();
+
+	std::cout << heap.is_empty();
 
 	// START OF A TEST/PLAYING AROUND SNIPPET
 	//std::cout << filename;
