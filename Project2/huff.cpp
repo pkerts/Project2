@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <ctype.h>
 
 Huff::Huff(std::string filename) : in_(new std::ifstream(filename)) // Initialize ifstream object immediately when ctor for Huff is called
 {
@@ -29,6 +30,7 @@ void Huff::BuildFrequencyTable() // Build frequency table
 	// TEST
 	// Parse through the frequency table after building it is done and print characters that were found
 	// (if they are printable) and their corresponding frequencies.
+	int total = 0;
 	for (auto i = 0; i < 256; ++i)
 	{
 		if (frequency_table_[i] != 0) // If there was this particular character found
@@ -41,9 +43,11 @@ void Huff::BuildFrequencyTable() // Build frequency table
 			{
 				std::cout << "NA "; // Otherwise print "NA"
 			}
-			std::cout << frequency_table_[i] << std::endl; // Print the frequency of this character
+			std::cout << " (" << std::hex << std::showbase << std::uppercase << i << ") " << std::dec << frequency_table_[i] << std::endl; // Print the frequency of this character
+			total += frequency_table_[i];
 		}
 	}
+	std::cout << "total: " << total << std::endl;
 
 	in_->close(); // Close the file
 }
