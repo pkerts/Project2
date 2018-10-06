@@ -15,13 +15,18 @@ private:
 		Priority data;
 	};
 	std::vector<Node> data_vector_;
+	void heapify(int i);
+	Node* minimum = nullptr;
 public:
 	bool is_empty();
 	void push(Priority priority, Data data);
+	Node* pop();
 	int parent(int i);
 	int left_child(int i);
 	int right_child(int i);
 	int print();
+	void heapify();
+	void verify();
 	std::string node_dump(unsigned int i);
 };
 
@@ -29,6 +34,15 @@ template <typename Priority, typename Data>
 void Heap<Priority, Data>::push(Priority priority, Data data)
 {
 	data_vector_.push_back({ priority, data });
+	heapify(data_vector_.size() - 1);
+}
+
+template <typename Priority, typename Data>
+typename Heap<Priority, Data>::Node* Heap<Priority, Data>::pop()
+{
+	minimum = new Node{ data_vector_.back() };
+	data_vector_.pop_back();
+	return minimum;
 }
 
 template<typename Priority, typename Data>
@@ -83,7 +97,32 @@ int Heap<Priority, Data>::print()
 		std::cout << node_dump(i) << " ";
 		a++;
 	}
+	std::cout << std::endl;
 	return 0;
+}
+
+template <typename Priority, typename Data>
+void Heap<Priority, Data>::heapify()
+{
+	heapify(data_vector_.size());
+}
+
+template <typename Priority, typename Data>
+void Heap<Priority, Data>::verify()
+{
+	int tru = 0;
+	for (auto i = data_vector_.size()-1; i > 0; --i)
+	{
+		if (data_vector_[parent(i)].priority < data_vector_[i].priority)
+		{
+			std::cout << "FALSE" << std::endl;
+		}
+		else
+		{
+			tru++;
+		}
+	}
+	std::cout << "TRUE X" << tru << std::endl;
 }
 
 template <typename Priority, typename Data>
@@ -105,6 +144,20 @@ std::string Heap<Priority, Data>::node_dump(unsigned int i)
 		dump.append("NA");
 	}
 	return dump;
+}
+
+template <typename Priority, typename Data>
+void Heap<Priority, Data>::heapify(int i)
+{
+	while (i != 0)
+	{
+		if (data_vector_[parent(i)].priority < data_vector_[i].priority)
+		{
+			std::swap(data_vector_[parent(i)], data_vector_[i]);
+		}
+		i = parent(i);
+		heapify(i);
+	}
 }
 
 template <typename Priority, typename Data>
