@@ -7,6 +7,7 @@
 
 Huff::Huff(std::string filename) : in_(new std::ifstream(filename)) // Initialize ifstream object immediately when ctor for Huff is called
 {
+	BuildFrequencyTable(); // Build our frequency table using the text file provided in the bash command line argument and passed to Huff ctor
 }
 
 Huff::~Huff() // dtor which deletes ifstream pointer
@@ -16,13 +17,15 @@ Huff::~Huff() // dtor which deletes ifstream pointer
 
 void Huff::BuildFrequencyTable() // Build frequency table
 {
-	char c; // temp char to use as buffer
+	char ch; // temp char to use as buffer
+	unsigned char unsigned_ch; // unsigned char we will use to make sure our ASCII values range correctly from 0-255 (instead of -127-128)
 
 	if (in_->is_open()) { // Check first just to make sure file is open. (File is passed in from Huff constructor
 						  // which is acquired from argv, command line parameter. Ex. ./a.out textfile.txt
-		while (in_->get(c)) { // While a character is still available in the text, acquire it, 
+		while (in_->get(ch)) { // While a character is still available in the text, acquire it, 
 							  // until there are no characters left in the text file.
-			frequency_table_[static_cast<int>(c)]++; // For the index in the frequency table corresponding to the ASCII value 
+			unsigned_ch = ch;
+			frequency_table_[static_cast<int>(unsigned_ch)]++; // For the index in the frequency table corresponding to the ASCII value 
 													 // of the current character, increment it by 1. (To eventually get a 
 													 // definitive character count
 		}
@@ -53,25 +56,6 @@ void Huff::BuildFrequencyTable() // Build frequency table
 	in_->close(); // Close the file
 }
 
-
-// TEST/PLAYING AROUND METHOD. NOT APART OF CLASS
-void readCharFile(std::string &filePath) {
-	std::ifstream in(filePath);
-	char c;
-
-	if (in.is_open()) {
-		while (in.get(c)) {
-			std::cout << (int)c << std::endl;
-			// Play with the data
-		}
-	}
-
-	if (!in.eof() && in.fail())
-		std::cout << "error reading " << filePath << std::endl;
-
-	in.close();
-}
-
 int main(int argc, char** argv) // The compiled code will take an argument
 {
 	std::string filename = argv[1]; // Get the string form of the argument. (This will be our filename. Ex. "./a.out textfile.txt" It
@@ -80,17 +64,31 @@ int main(int argc, char** argv) // The compiled code will take an argument
 	// TEST/PLAYING AROUND
 	// readCharFile(filename);
 
-	Huff huff(filename); // Create Huff object using the argv. It goes argv > string > file opened
-	huff.BuildFrequencyTable(); // Build our frequency table using the text file provided in the bash command line argument and passed to Huff ctor
+	Huff h(filename); // Create Huff object using the argv. It goes argv > string > file opened
+	
+	Heap<unsigned int, unsigned char> heap;
 
-	Heap<int, int> heap;
-	heap.push();
-	heap.push();
-	heap.push();
-	heap.push();
-	heap.push();
+	for (auto i = 0; i < 256; ++i)
+	{
+		if (h.FrequencyTable(i))
+		{
+			heap.push(h.FrequencyTable(i), static_cast<unsigned char>(i));
+		}
+	}
 
-	std::cout << heap.is_empty();
+	heap.print();
+
+	// in
+
+	// Heap heap(huff.fre)
+	/*Heap<int, int> heap;
+	heap.push();
+	heap.push();
+	heap.push();
+	heap.push();
+	heap.push();*/
+
+	// std::cout << heap.is_empty();
 
 	// START OF A TEST/PLAYING AROUND SNIPPET
 	//std::cout << filename;
