@@ -13,10 +13,14 @@ private:
 	{
 		Priority priority;
 		Priority data;
+		Node* left;
+		Node* right;
 	};
 	std::vector<Node> data_vector_;
 	void heapify(int i);
 	Node* minimum = nullptr;
+	Node* root = nullptr;
+	int check_Tree(Node* root);
 public:
 	bool is_empty();
 	void push(Priority priority, Data data);
@@ -27,6 +31,8 @@ public:
 	int print();
 	void heapify();
 	void verify();
+	void MakeTree();
+	void check_Tree();
 	std::string node_dump(unsigned int i);
 };
 
@@ -126,6 +132,28 @@ void Heap<Priority, Data>::verify()
 }
 
 template <typename Priority, typename Data>
+void Heap<Priority, Data>::MakeTree()
+{
+	while (data_vector_.size() > 1)
+	{
+		Node* a = new Node{ *pop() };
+		auto b = a->priority;
+		auto c = a->data;
+		Node* d = new Node{ *pop() };
+		auto e = d->priority;
+		auto f = d->data;
+		data_vector_.push_back({ (b + e), '\0', a, d });
+	}
+	root = &data_vector_.front();
+}
+
+template <typename Priority, typename Data>
+void Heap<Priority, Data>::check_Tree()
+{
+	check_Tree(root);
+}
+
+template <typename Priority, typename Data>
 std::string Heap<Priority, Data>::node_dump(unsigned int i)
 {
 	std::string dump{ "" };
@@ -158,6 +186,24 @@ void Heap<Priority, Data>::heapify(int i)
 		i = parent(i);
 		heapify(i);
 	}
+}
+
+template <typename Priority, typename Data>
+int Heap<Priority, Data>::check_Tree(Node* Ptr)
+{
+	if (Ptr->left)
+	{
+		check_Tree(Ptr->left);
+	}
+	if (Ptr->data)
+	{
+		std::cout << Ptr->data << std::endl;
+	}
+	if (Ptr->right)
+	{
+		check_Tree(Ptr->right);
+	}
+	return 0;
 }
 
 template <typename Priority, typename Data>

@@ -1,5 +1,6 @@
 #include "huff.h"
 #include "Heap.h"
+#include "tree.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -77,12 +78,12 @@ int main(int argc, char** argv) // The compiled code will take an argument
 	}
 
 	heap.print();
-	heap.verify();
-	for (auto d = 0; d < 23; ++d)
-	{
-		heap.pop();
-	}
-	heap.verify();
+	heap.MakeTree();
+	heap.check_Tree();
+	// tree tr;
+
+	
+
 
 
 	// in
