@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <ctype.h>
+#include "bitstreams.h"
+#include <cmath>
 
 Huff::Huff(std::string filename) : in_(new std::ifstream(filename)) // Initialize ifstream object immediately when ctor for Huff is called
 {
@@ -23,14 +25,19 @@ void Huff::BuildFrequencyTable() // Build frequency table
 
 	if (in_->is_open()) { // Check first just to make sure file is open. (File is passed in from Huff constructor
 						  // which is acquired from argv, command line parameter. Ex. ./a.out textfile.txt
-		while (in_->get(ch)) { // While a character is still available in the text, acquire it, 
+		std::ifstream::pos_type pos = 0;
+		while (in_->peek() != -1) { // While a character is still available in the text, acquire it, 
 							  // until there are no characters left in the text file.
-			unsigned_ch = ch;
+			unsigned_ch = in_->peek();
 			frequency_table_[static_cast<int>(unsigned_ch)]++; // For the index in the frequency table corresponding to the ASCII value 
 													 // of the current character, increment it by 1. (To eventually get a 
 													 // definitive character count
+			total_characters++;
+			pos += 1;
+			in_->seekg(pos);
 		}
 	}
+	in_->seekg(0);
 
 	// TEST
 	// Parse through the frequency table after building it is done and print characters that were found
@@ -54,7 +61,20 @@ void Huff::BuildFrequencyTable() // Build frequency table
 	}
 	std::cout << "total: " << total << std::endl;
 
-	in_->close(); // Close the file
+	// in_->close(); // Close the file
+}
+
+unsigned char Huff::output_characters(unsigned long position_in_file)
+{
+	std::ifstream::pos_type position = position_in_file;
+	in_->seekg(position_in_file);
+	unsigned char ch = in_->peek();
+	return ch;
+}
+
+unsigned long Huff::get_total_characters()
+{
+	return total_characters;
 }
 
 int main(int argc, char** argv) // The compiled code will take an argument
@@ -66,25 +86,55 @@ int main(int argc, char** argv) // The compiled code will take an argument
 	// readCharFile(filename);
 
 	Huff h(filename); // Create Huff object using the argv. It goes argv > string > file opened
-	
+
+	// h.check_file();
+
 	Heap<unsigned int, unsigned char> heap;
 
 	for (auto i = 0; i < 256; ++i)
 	{
 		if (h.FrequencyTable(i))
 		{
-			heap.push(h.FrequencyTable(i), static_cast<unsigned char>(i));
+			heap.push(h.FrequencyTable(i), static_cast<unsigned char>(i), nullptr, nullptr);
 		}
 	}
 
 	heap.print();
+
 	heap.MakeTree();
 	heap.check_Tree();
+	heap.create_coded_symbols();
 	// tree tr;
+	heap.print_bit_patterns();
 
-	
 
+	filename.replace(filename.find(".txt"), std::string(".txt").size(), ".huff");
+	bitstreams bs(filename);
 
+	// WRITING THE HEADER
+	for (auto ascii_value = 0; ascii_value < 256; ++ascii_value)
+	{
+		auto bitlength = heap.return_bit_length(ascii_value);
+		bs.putByte(bitlength);
+		// auto num_of_bytes = std::ceil(static_cast<double>(bitlength) / static_cast<double>(8));
+		for (auto position = 0; position < bitlength; ++position)
+		{
+			bs.putBit(heap.return_bitpattern_bit_by_bit(ascii_value, position));
+		}
+	}
+	bs.flush();
+
+	// WRITING THE NUMBER OF SYMBOLS IN THE FILE
+	auto total_characters = h.get_total_characters();
+	bs.putLong(total_characters);
+
+	// WRITING THE SYMBOLS
+	for (auto position_in_file = 0; position_in_file < total_characters; ++position_in_file)
+	{
+		std::cout << h.output_characters(position_in_file);
+	}
+
+	auto hefe = h.output_characters(0);
 
 	// in
 
