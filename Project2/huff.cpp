@@ -20,7 +20,6 @@ Huff::~Huff() // dtor which deletes ifstream pointer
 
 void Huff::BuildFrequencyTable() // Build frequency table
 {
-	char ch; // temp char to use as buffer
 	unsigned char unsigned_ch; // unsigned char we will use to make sure our ASCII values range correctly from 0-255 (instead of -127-128)
 
 	if (in_->is_open()) { // Check first just to make sure file is open. (File is passed in from Huff constructor
@@ -66,7 +65,6 @@ void Huff::BuildFrequencyTable() // Build frequency table
 
 unsigned char Huff::output_characters(unsigned long position_in_file)
 {
-	std::ifstream::pos_type position = position_in_file;
 	in_->seekg(position_in_file);
 	unsigned char ch = in_->peek();
 	return ch;
@@ -128,13 +126,28 @@ int main(int argc, char** argv) // The compiled code will take an argument
 	auto total_characters = h.get_total_characters();
 	bs.putLong(total_characters);
 
+	unsigned char ch{ 0 };
+	unsigned int length = 0;
 	// WRITING THE SYMBOLS
-	for (auto position_in_file = 0; position_in_file < total_characters; ++position_in_file)
+
+	int bitswritten = 0;
+
+	// YO
+	// THIS MIGHT NEED TO BE BIG ENDIAN
+	for (unsigned int position_in_file = 0; position_in_file < total_characters; ++position_in_file)
 	{
-		std::cout << h.output_characters(position_in_file);
+		ch = h.output_characters(position_in_file);
+		length = heap.return_bit_length(static_cast<unsigned int>(ch));
+		for (int bitposition = length; bitposition > 0; --bitposition)
+		{
+			bs.putBit(heap.return_bitpattern_bit_by_bit(static_cast<int>(ch), bitposition));
+			++bitswritten;
+			std::cout << ch << " " << "bit: " << heap.return_bitpattern_bit_by_bit(static_cast<int>(ch), bitposition) << "num: " << bitswritten << std::endl;
+		}
+		std::cout << std::endl;
+		bitswritten = 0;
 	}
 
-	auto hefe = h.output_characters(0);
 
 	// in
 

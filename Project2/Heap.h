@@ -287,8 +287,8 @@ void Heap<Priority, Data>::create_coded_symbols(Node* Ptr, unsigned char length,
 
 	length++;
 
-	create_coded_symbols(Ptr->left, length, bitpattern << 1 | 1);
-	create_coded_symbols(Ptr->right, length, bitpattern << 1);
+	create_coded_symbols(Ptr->left, length, bitpattern << 1);
+	create_coded_symbols(Ptr->right, length, bitpattern << 1 | 1);
 }
 
 template <typename Priority, typename Data>

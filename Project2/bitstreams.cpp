@@ -12,6 +12,7 @@ bitstreams::bitstreams(std::string filename) : file(new std::ofstream(filename, 
 
 bitstreams::~bitstreams()
 {
+	flush();
 	delete file;
 }
 
