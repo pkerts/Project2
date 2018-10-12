@@ -30,7 +30,13 @@ private:
 	Node* root = nullptr;
 	int check_Tree(Node* root);
 	void create_coded_symbols(Node* Ptr, unsigned char length, unsigned long long bitpattern);
+	void delete_tree(Node* root);
 public:
+	~Heap()
+	{
+		// delete_tree(root);
+		delete minimum;
+	}
 	bool is_empty();
 	void push(Priority priority, Data data, Node* right, Node* left);
 	Node* pop();
@@ -47,7 +53,6 @@ public:
 	void print_bit_patterns();
 	unsigned char return_bit_length(unsigned int i);
 	unsigned int return_bitpattern_bit_by_bit(unsigned int i, int position);
-
 };
 
 template <typename Priority, typename Data>
@@ -243,10 +248,10 @@ void Heap<Priority, Data>::print_bit_patterns()
 {
 	for (auto i = 0; i < 256; ++i)
 	{
-		if (coded_symbols_array[i].bit_pattern)
+		if (coded_symbols_array[i].length)
 		{
 			std::bitset<12> bb{ coded_symbols_array[i].bit_pattern };
-			std::cout << static_cast<int>(coded_symbols_array[i].length) << std::endl;
+			std::cout << "'" << static_cast<unsigned char>(i) << "'" << " " <<  "length: " << static_cast<int>(coded_symbols_array[i].length) << " ";
 			std::cout << bb.to_string() << std::endl;
 		}
 	}
@@ -263,7 +268,7 @@ unsigned Heap<Priority, Data>::return_bitpattern_bit_by_bit(unsigned i, int posi
 {
 	auto a = coded_symbols_array[i].bit_pattern;
 	unsigned long long b = 1;
-	b <<= (position-1);
+	b <<= (position);
 	if (a & b)
 	{
 		return 1;
@@ -281,14 +286,33 @@ void Heap<Priority, Data>::create_coded_symbols(Node* Ptr, unsigned char length,
 
 	if (!(Ptr->left) && !(Ptr->right))
 	{
+		// TEST
+		std::bitset<8> bp{ bitpattern };
+		std::cout << "\"" << Ptr->data << "\"  " << "\"" << static_cast<char>(Ptr->data) << "\"  " << "\"" << static_cast<int>(Ptr->priority) << "\"  " << "\"" << bp.to_string() << "\"  " << "\"" << static_cast<int>(length) << "\"" << std::endl;
 		CodedSymbol cs{ length, bitpattern };
 		coded_symbols_array[static_cast<int>(Ptr->data)] = cs;
 	}
 
 	length++;
+	if (Ptr->left)
+		create_coded_symbols(Ptr->left, length, bitpattern << 1);
+	if (Ptr->right)
+		create_coded_symbols(Ptr->right, length, (bitpattern << 1) | 1);
+}
 
-	create_coded_symbols(Ptr->left, length, bitpattern << 1);
-	create_coded_symbols(Ptr->right, length, bitpattern << 1 | 1);
+template <typename Priority, typename Data>
+void Heap<Priority, Data>::delete_tree(Node* Ptr)
+{
+	if (Ptr->left)
+	{
+		delete_tree(Ptr->left);
+
+	}
+	if (Ptr->right)
+	{
+		delete_tree(Ptr->right);
+	}
+	delete Ptr;
 }
 
 template <typename Priority, typename Data>

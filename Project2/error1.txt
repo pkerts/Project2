@@ -1,0 +1,140 @@
+==91== Syscall param write(buf) points to uninitialised byte(s)
+==91==    at 0x588B154: write (write.c:27)
+==91==    by 0x4EEFBB5: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F2C2A0: std::basic_filebuf<char, std::char_traits<char> >::_M_convert_to_external(char*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F2C6E7: std::basic_filebuf<char, std::char_traits<char> >::overflow(int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F2C410: std::basic_filebuf<char, std::char_traits<char> >::_M_terminate_output() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F2F6EC: std::basic_filebuf<char, std::char_traits<char> >::close() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F31E04: std::basic_ofstream<char, std::char_traits<char> >::~basic_ofstream() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x10D74D: bitstreams::~bitstreams() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10AA33: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==  Address 0x5b813fb is 27 bytes inside a block of size 8,192 alloc'd
+==91==    at 0x4C3089F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91==    by 0x4F2C157: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F30271: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F31355: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x10D6DB: bitstreams::bitstreams(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A790: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+--91-- REDIR: 0x4ecd310 (libstdc++.so.6:operator delete[](void*)) redirected to 0x4c316d0 (operator delete[](void*))
+--91-- REDIR: 0x5812950 (libc.so.6:free) redirected to 0x4c30cd0 (free)
+==91==
+==91== HEAP SUMMARY:
+==91==     in use at exit: 576 bytes in 24 blocks
+==91==   total heap usage: 36 allocs, 12 frees, 92,672 bytes allocated
+==91==
+==91== Searching for pointers to 24 not-freed blocks
+==91== Checked 110,008 bytes
+==91==
+==91== 24 bytes in 1 blocks are definitely lost in loss record 1 of 6
+==91==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91==    by 0x10B3E2: Heap<unsigned int, unsigned char>::MakeTree() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A69E: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91== 24 bytes in 1 blocks are definitely lost in loss record 2 of 6
+==91==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91==    by 0x10B421: Heap<unsigned int, unsigned char>::MakeTree() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A69E: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91== 192 (144 direct, 48 indirect) bytes in 6 blocks are definitely lost in loss record 5 of 6
+==91==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91==    by 0x10BC86: Heap<unsigned int, unsigned char>::pop() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10B3D5: Heap<unsigned int, unsigned char>::MakeTree() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A69E: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91== 336 (144 direct, 192 indirect) bytes in 6 blocks are definitely lost in loss record 6 of 6
+==91==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91==    by 0x10BC86: Heap<unsigned int, unsigned char>::pop() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10B414: Heap<unsigned int, unsigned char>::MakeTree() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A69E: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91== LEAK SUMMARY:
+==91==    definitely lost: 336 bytes in 14 blocks
+==91==    indirectly lost: 240 bytes in 10 blocks
+==91==      possibly lost: 0 bytes in 0 blocks
+==91==    still reachable: 0 bytes in 0 blocks
+==91==         suppressed: 0 bytes in 0 blocks
+==91==
+==91== Use --track-origins=yes to see where uninitialised values come from
+==91== ERROR SUMMARY: 28646 errors from 13 contexts (suppressed: 0 from 0)
+==91==
+==91== 1 errors in context 1 of 13:
+==91== Syscall param write(buf) points to uninitialised byte(s)
+==91==    at 0x588B154: write (write.c:27)
+==91==    by 0x4EEFBB5: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F2C2A0: std::basic_filebuf<char, std::char_traits<char> >::_M_convert_to_external(char*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F2C6E7: std::basic_filebuf<char, std::char_traits<char> >::overflow(int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F2C410: std::basic_filebuf<char, std::char_traits<char> >::_M_terminate_output() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F2F6EC: std::basic_filebuf<char, std::char_traits<char> >::close() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F31E04: std::basic_ofstream<char, std::char_traits<char> >::~basic_ofstream() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x10D74D: bitstreams::~bitstreams() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10AA33: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==  Address 0x5b813fb is 27 bytes inside a block of size 8,192 alloc'd
+==91==    at 0x4C3089F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91==    by 0x4F2C157: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F30271: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F31355: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x10D6DB: bitstreams::bitstreams(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A790: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91==
+==91== 141 errors in context 2 of 13:
+==91== Conditional jump or move depends on uninitialised value(s)
+==91==    at 0x4F44096: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F50384: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x10B594: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91==
+==91== 141 errors in context 3 of 13:
+==91== Conditional jump or move depends on uninitialised value(s)
+==91==    at 0x4F4403A: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F50384: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x10B594: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91==
+==91== 248 errors in context 4 of 13:
+==91== Conditional jump or move depends on uninitialised value(s)
+==91==    at 0x10B543: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91==
+==91== 281 errors in context 5 of 13:
+==91== Conditional jump or move depends on uninitialised value(s)
+==91==    at 0x4F43B4B: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F44063: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F50384: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x10B594: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91==
+==91== 281 errors in context 6 of 13:
+==91== Use of uninitialised value of size 8
+==91==    at 0x4F43B3E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F44063: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x4F50384: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==91==    by 0x10B594: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91==
+==91== 1692 errors in context 7 of 13:
+==91== Conditional jump or move depends on uninitialised value(s)
+==91==    at 0x10CE1F: void std::bitset<12ul>::_M_copy_to_string<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, char, char) const (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10C6B9: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::bitset<12ul>::to_string<char, std::char_traits<char>, std::allocator<char> >() const (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10C03F: std::bitset<12ul>::to_string[abi:cxx11]() const (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10B5BC: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91==
+==91== 12823 errors in context 8 of 13:
+==91== Conditional jump or move depends on uninitialised value(s)
+==91==    at 0x10B694: Heap<unsigned int, unsigned char>::return_bitpattern_bit_by_bit(unsigned int, int) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==    by 0x10A824: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91==
+==91== 13034 errors in context 9 of 13:
+==91== Conditional jump or move depends on uninitialised value(s)
+==91==    at 0x10A806: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==91==
+==91== ERROR SUMMARY: 28646 errors from 13 contexts (suppressed: 0 from 0)

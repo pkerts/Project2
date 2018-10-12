@@ -138,7 +138,7 @@ int main(int argc, char** argv) // The compiled code will take an argument
 	{
 		ch = h.output_characters(position_in_file);
 		length = heap.return_bit_length(static_cast<unsigned int>(ch));
-		for (int bitposition = length; bitposition > 0; --bitposition)
+		for (unsigned int bitposition = 0; bitposition < length; ++bitposition)
 		{
 			bs.putBit(heap.return_bitpattern_bit_by_bit(static_cast<int>(ch), bitposition));
 			++bitswritten;

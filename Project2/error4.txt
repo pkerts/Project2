@@ -1,0 +1,182 @@
+==153== Syscall param write(buf) points to uninitialised byte(s)
+==153==    at 0x588B154: write (write.c:27)
+==153==    by 0x4EEFBB5: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F2C2A0: std::basic_filebuf<char, std::char_traits<char> >::_M_convert_to_external(char*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F2C6E7: std::basic_filebuf<char, std::char_traits<char> >::overflow(int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F2C410: std::basic_filebuf<char, std::char_traits<char> >::_M_terminate_output() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F2F6EC: std::basic_filebuf<char, std::char_traits<char> >::close() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F31E04: std::basic_ofstream<char, std::char_traits<char> >::~basic_ofstream() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x10D7EB: bitstreams::~bitstreams() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10AA33: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==  Address 0x5b813fb is 27 bytes inside a block of size 8,192 alloc'd
+==153==    at 0x4C3089F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==153==    by 0x4F2C157: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F30271: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F31355: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x10D779: bitstreams::bitstreams(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A790: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+--153-- REDIR: 0x4ecd310 (libstdc++.so.6:operator delete[](void*)) redirected to 0x4c316d0 (operator delete[](void*))
+--153-- REDIR: 0x5812950 (libc.so.6:free) redirected to 0x4c30cd0 (free)
+==153== Invalid free() / delete / delete[] / realloc()
+==153==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==153==    by 0x10CF9F: __gnu_cxx::new_allocator<Heap<unsigned int, unsigned char>::Node>::deallocate(Heap<unsigned int, unsigned char>::Node*, unsigned long) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10C91D: std::allocator_traits<std::allocator<Heap<unsigned int, unsigned char>::Node> >::deallocate(std::allocator<Heap<unsigned int, unsigned char>::Node>&, Heap<unsigned int, unsigned char>::Node*, unsigned long) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10C1DF: std::_Vector_base<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::_M_deallocate(Heap<unsigned int, unsigned char>::Node*, unsigned long) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B833: std::_Vector_base<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::~_Vector_base() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B12A: std::vector<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::~vector() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B17D: Heap<unsigned int, unsigned char>::~Heap() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10AA42: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==  Address 0x5b80530 is 0 bytes inside a block of size 192 free'd
+==153==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==153==    by 0x10B8E4: Heap<unsigned int, unsigned char>::delete_tree(Heap<unsigned int, unsigned char>::Node*) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B153: Heap<unsigned int, unsigned char>::~Heap() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10AA42: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==  Block was alloc'd at
+==153==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==153==    by 0x10D4DA: __gnu_cxx::new_allocator<Heap<unsigned int, unsigned char>::Node>::allocate(unsigned long, void const*) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10D33A: std::allocator_traits<std::allocator<Heap<unsigned int, unsigned char>::Node> >::allocate(std::allocator<Heap<unsigned int, unsigned char>::Node>&, unsigned long) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10D169: std::_Vector_base<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::_M_allocate(unsigned long) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10C9E5: void std::vector<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::_M_realloc_insert<Heap<unsigned int, unsigned char>::Node>(__gnu_cxx::__normal_iterator<Heap<unsigned int, unsigned char>::Node*, std::vector<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> > >, Heap<unsigned int, unsigned char>::Node&&) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10C2A9: void std::vector<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::emplace_back<Heap<unsigned int, unsigned char>::Node>(Heap<unsigned int, unsigned char>::Node&&) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B923: std::vector<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::push_back(Heap<unsigned int, unsigned char>::Node&&) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B1E3: Heap<unsigned int, unsigned char>::push(unsigned int, unsigned char, Heap<unsigned int, unsigned char>::Node*, Heap<unsigned int, unsigned char>::Node*) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A677: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153==
+==153== HEAP SUMMARY:
+==153==     in use at exit: 264 bytes in 11 blocks
+==153==   total heap usage: 36 allocs, 26 frees, 92,672 bytes allocated
+==153==
+==153== Searching for pointers to 11 not-freed blocks
+==153== Checked 110,008 bytes
+==153==
+==153== 120 bytes in 5 blocks are definitely lost in loss record 1 of 2
+==153==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==153==    by 0x10BD24: Heap<unsigned int, unsigned char>::pop() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B446: Heap<unsigned int, unsigned char>::MakeTree() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A69E: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153== 144 bytes in 6 blocks are definitely lost in loss record 2 of 2
+==153==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==153==    by 0x10BD24: Heap<unsigned int, unsigned char>::pop() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B407: Heap<unsigned int, unsigned char>::MakeTree() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A69E: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153== LEAK SUMMARY:
+==153==    definitely lost: 264 bytes in 11 blocks
+==153==    indirectly lost: 0 bytes in 0 blocks
+==153==      possibly lost: 0 bytes in 0 blocks
+==153==    still reachable: 0 bytes in 0 blocks
+==153==         suppressed: 0 bytes in 0 blocks
+==153==
+==153== Use --track-origins=yes to see where uninitialised values come from
+==153== ERROR SUMMARY: 28645 errors from 12 contexts (suppressed: 0 from 0)
+==153==
+==153== 1 errors in context 1 of 12:
+==153== Invalid free() / delete / delete[] / realloc()
+==153==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==153==    by 0x10CF9F: __gnu_cxx::new_allocator<Heap<unsigned int, unsigned char>::Node>::deallocate(Heap<unsigned int, unsigned char>::Node*, unsigned long) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10C91D: std::allocator_traits<std::allocator<Heap<unsigned int, unsigned char>::Node> >::deallocate(std::allocator<Heap<unsigned int, unsigned char>::Node>&, Heap<unsigned int, unsigned char>::Node*, unsigned long) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10C1DF: std::_Vector_base<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::_M_deallocate(Heap<unsigned int, unsigned char>::Node*, unsigned long) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B833: std::_Vector_base<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::~_Vector_base() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B12A: std::vector<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::~vector() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B17D: Heap<unsigned int, unsigned char>::~Heap() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10AA42: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==  Address 0x5b80530 is 0 bytes inside a block of size 192 free'd
+==153==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==153==    by 0x10B8E4: Heap<unsigned int, unsigned char>::delete_tree(Heap<unsigned int, unsigned char>::Node*) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B153: Heap<unsigned int, unsigned char>::~Heap() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10AA42: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==  Block was alloc'd at
+==153==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==153==    by 0x10D4DA: __gnu_cxx::new_allocator<Heap<unsigned int, unsigned char>::Node>::allocate(unsigned long, void const*) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10D33A: std::allocator_traits<std::allocator<Heap<unsigned int, unsigned char>::Node> >::allocate(std::allocator<Heap<unsigned int, unsigned char>::Node>&, unsigned long) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10D169: std::_Vector_base<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::_M_allocate(unsigned long) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10C9E5: void std::vector<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::_M_realloc_insert<Heap<unsigned int, unsigned char>::Node>(__gnu_cxx::__normal_iterator<Heap<unsigned int, unsigned char>::Node*, std::vector<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> > >, Heap<unsigned int, unsigned char>::Node&&) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10C2A9: void std::vector<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::emplace_back<Heap<unsigned int, unsigned char>::Node>(Heap<unsigned int, unsigned char>::Node&&) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B923: std::vector<Heap<unsigned int, unsigned char>::Node, std::allocator<Heap<unsigned int, unsigned char>::Node> >::push_back(Heap<unsigned int, unsigned char>::Node&&) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B1E3: Heap<unsigned int, unsigned char>::push(unsigned int, unsigned char, Heap<unsigned int, unsigned char>::Node*, Heap<unsigned int, unsigned char>::Node*) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A677: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153==
+==153== 1 errors in context 2 of 12:
+==153== Syscall param write(buf) points to uninitialised byte(s)
+==153==    at 0x588B154: write (write.c:27)
+==153==    by 0x4EEFBB5: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F2C2A0: std::basic_filebuf<char, std::char_traits<char> >::_M_convert_to_external(char*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F2C6E7: std::basic_filebuf<char, std::char_traits<char> >::overflow(int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F2C410: std::basic_filebuf<char, std::char_traits<char> >::_M_terminate_output() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F2F6EC: std::basic_filebuf<char, std::char_traits<char> >::close() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F31E04: std::basic_ofstream<char, std::char_traits<char> >::~basic_ofstream() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x10D7EB: bitstreams::~bitstreams() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10AA33: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==  Address 0x5b813fb is 27 bytes inside a block of size 8,192 alloc'd
+==153==    at 0x4C3089F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==153==    by 0x4F2C157: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F30271: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F31355: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x10D779: bitstreams::bitstreams(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A790: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153==
+==153== 141 errors in context 3 of 12:
+==153== Conditional jump or move depends on uninitialised value(s)
+==153==    at 0x4F44096: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F50384: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x10B5C6: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153==
+==153== 141 errors in context 4 of 12:
+==153== Conditional jump or move depends on uninitialised value(s)
+==153==    at 0x4F4403A: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F50384: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x10B5C6: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153==
+==153== 248 errors in context 5 of 12:
+==153== Conditional jump or move depends on uninitialised value(s)
+==153==    at 0x10B575: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153==
+==153== 281 errors in context 6 of 12:
+==153== Conditional jump or move depends on uninitialised value(s)
+==153==    at 0x4F43B4B: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F44063: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F50384: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x10B5C6: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153==
+==153== 281 errors in context 7 of 12:
+==153== Use of uninitialised value of size 8
+==153==    at 0x4F43B3E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F44063: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x4F50384: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==153==    by 0x10B5C6: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153==
+==153== 1692 errors in context 8 of 12:
+==153== Conditional jump or move depends on uninitialised value(s)
+==153==    at 0x10CEBD: void std::bitset<12ul>::_M_copy_to_string<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, char, char) const (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10C757: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::bitset<12ul>::to_string<char, std::char_traits<char>, std::allocator<char> >() const (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10C0DD: std::bitset<12ul>::to_string[abi:cxx11]() const (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10B5EE: Heap<unsigned int, unsigned char>::print_bit_patterns() (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A6CB: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153==
+==153== 12823 errors in context 9 of 12:
+==153== Conditional jump or move depends on uninitialised value(s)
+==153==    at 0x10B6C6: Heap<unsigned int, unsigned char>::return_bitpattern_bit_by_bit(unsigned int, int) (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==    by 0x10A824: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153==
+==153== 13034 errors in context 10 of 12:
+==153== Conditional jump or move depends on uninitialised value(s)
+==153==    at 0x10A806: main (in /mnt/c/Users/pkerts/source/repos/Project2/Project2/a.out)
+==153==
+==153== ERROR SUMMARY: 28645 errors from 12 contexts (suppressed: 0 from 0)
