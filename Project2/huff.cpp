@@ -113,12 +113,23 @@ int main(int argc, char** argv) // The compiled code will take an argument
 	for (auto ascii_value = 0; ascii_value < 256; ++ascii_value)
 	{
 		auto bitlength = heap.return_bit_length(ascii_value);
+		/*if (bitlength)
+		{
+			for (auto pos = 0; pos < 8; ++pos)
+			{
+				bs.putBit(heap.return_bit_length_bit_by_bit(ascii_value, pos));
+			}
+		}
+		else
+		{*/
 		bs.putByte(bitlength);
+		// }
 		// auto num_of_bytes = std::ceil(static_cast<double>(bitlength) / static_cast<double>(8));
-		for (auto position = 0; position < bitlength; ++position)
+		for (auto position = (bitlength - 1); position > -1; --position)
 		{
 			bs.putBit(heap.return_bitpattern_bit_by_bit(ascii_value, position));
 		}
+		bs.flush();
 	}
 	bs.flush();
 
@@ -138,7 +149,7 @@ int main(int argc, char** argv) // The compiled code will take an argument
 	{
 		ch = h.output_characters(position_in_file);
 		length = heap.return_bit_length(static_cast<unsigned int>(ch));
-		for (unsigned int bitposition = 0; bitposition < length; ++bitposition)
+		for (int bitposition = (length-1); bitposition > -1; --bitposition)
 		{
 			bs.putBit(heap.return_bitpattern_bit_by_bit(static_cast<int>(ch), bitposition));
 			++bitswritten;

@@ -57,12 +57,13 @@ int bitstreams::putByte(unsigned char byte)
 
 int bitstreams::putLong(unsigned long total)
 {
-	std::cout << std::endl;
+	/*std::cout << std::endl;
 	unsigned char mask = { 0b11111111 };
 	for (auto i = 3; i >= 0; --i)
 	{
 		putByte(total >> (8 * i) & mask);
-	}
+	}*/
+	file->write(reinterpret_cast<char*>(&total), sizeof(unsigned long));
 	return 0;
 }
 

@@ -53,6 +53,7 @@ public:
 	void print_bit_patterns();
 	unsigned char return_bit_length(unsigned int i);
 	unsigned int return_bitpattern_bit_by_bit(unsigned int i, int position);
+	unsigned int return_bit_length_bit_by_bit(unsigned int i, int position);
 };
 
 template <typename Priority, typename Data>
@@ -267,6 +268,19 @@ template <typename Priority, typename Data>
 unsigned Heap<Priority, Data>::return_bitpattern_bit_by_bit(unsigned i, int position)
 {
 	auto a = coded_symbols_array[i].bit_pattern;
+	unsigned long long b = 1;
+	b <<= (position);
+	if (a & b)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+template <typename Priority, typename Data>
+unsigned Heap<Priority, Data>::return_bit_length_bit_by_bit(unsigned i, int position)
+{
+	auto a = coded_symbols_array[i].length;
 	unsigned long long b = 1;
 	b <<= (position);
 	if (a & b)
