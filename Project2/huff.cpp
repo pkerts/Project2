@@ -75,120 +75,120 @@ unsigned long Huff::get_total_characters()
 	return total_characters;
 }
 
-int main(int argc, char** argv) // The compiled code will take an argument
-{
-	std::string filename = argv[1]; // Get the string form of the argument. (This will be our filename. Ex. "./a.out textfile.txt" It
-	// is the textfile.txt part)
-
-	// TEST/PLAYING AROUND
-	// readCharFile(filename);
-
-	Huff h(filename); // Create Huff object using the argv. It goes argv > string > file opened
-
-	// h.check_file();
-
-	Heap<unsigned int, unsigned char> heap;
-
-	for (auto i = 0; i < 256; ++i)
-	{
-		if (h.FrequencyTable(i))
-		{
-			heap.push(h.FrequencyTable(i), static_cast<unsigned char>(i), nullptr, nullptr);
-		}
-	}
-
-	heap.print();
-
-	heap.MakeTree();
-	heap.check_Tree();
-	heap.create_coded_symbols();
-	// tree tr;
-	heap.print_bit_patterns();
-
-
-	filename.replace(filename.find(".txt"), std::string(".txt").size(), ".huff");
-	bitstreams bs(filename);
-
-	// WRITING THE HEADER
-	for (auto ascii_value = 0; ascii_value < 256; ++ascii_value)
-	{
-		auto bitlength = heap.return_bit_length(ascii_value);
-		/*if (bitlength)
-		{
-			for (auto pos = 0; pos < 8; ++pos)
-			{
-				bs.putBit(heap.return_bit_length_bit_by_bit(ascii_value, pos));
-			}
-		}
-		else
-		{*/
-		bs.putByte(bitlength);
-		// }
-		// auto num_of_bytes = std::ceil(static_cast<double>(bitlength) / static_cast<double>(8));
-		for (auto position = (bitlength - 1); position > -1; --position)
-		{
-			bs.putBit(heap.return_bitpattern_bit_by_bit(ascii_value, position));
-		}
-		bs.flush();
-	}
-	bs.flush();
-
-	// WRITING THE NUMBER OF SYMBOLS IN THE FILE
-	auto total_characters = h.get_total_characters();
-	bs.putLong(total_characters);
-
-	unsigned char ch{ 0 };
-	unsigned int length = 0;
-	// WRITING THE SYMBOLS
-
-	int bitswritten = 0;
-
-	// YO
-	// THIS MIGHT NEED TO BE BIG ENDIAN
-	for (unsigned int position_in_file = 0; position_in_file < total_characters; ++position_in_file)
-	{
-		ch = h.output_characters(position_in_file);
-		length = heap.return_bit_length(static_cast<unsigned int>(ch));
-		for (int bitposition = (length-1); bitposition > -1; --bitposition)
-		{
-			bs.putBit(heap.return_bitpattern_bit_by_bit(static_cast<int>(ch), bitposition));
-			++bitswritten;
-			std::cout << ch << " " << "bit: " << heap.return_bitpattern_bit_by_bit(static_cast<int>(ch), bitposition) << "num: " << bitswritten << std::endl;
-		}
-		std::cout << std::endl;
-		bitswritten = 0;
-	}
-
-
-	// in
-
-	// Heap heap(huff.fre)
-	/*Heap<int, int> heap;
-	heap.push();
-	heap.push();
-	heap.push();
-	heap.push();
-	heap.push();*/
-
-	// std::cout << heap.is_empty();
-
-	// START OF A TEST/PLAYING AROUND SNIPPET
-	//std::cout << filename;
-	//std::cout << "hello test";
-	//std::fstream file(filename);
-	//std::string test;
-	//*for (std::string line; getline(input, line); )
-	//{
-	//	...for each line in input...
-	//}*/
-	//char buffer{0};
-	//// for (auto i = 0; i < 4; ++i)
-	//// {
-	//	std::getline(file, test);
-	//	std::cout << test;
-	//// }
-	// END OF A TEST SNIPPET
-
-
-	return 0;
-}
+//int main(int argc, char** argv) // The compiled code will take an argument
+//{
+//	std::string filename = argv[1]; // Get the string form of the argument. (This will be our filename. Ex. "./a.out textfile.txt" It
+//	// is the textfile.txt part)
+//
+//	// TEST/PLAYING AROUND
+//	// readCharFile(filename);
+//
+//	Huff h(filename); // Create Huff object using the argv. It goes argv > string > file opened
+//
+//	// h.check_file();
+//
+//	Heap<unsigned int, unsigned char> heap;
+//
+//	for (auto i = 0; i < 256; ++i)
+//	{
+//		if (h.FrequencyTable(i))
+//		{
+//			heap.push(h.FrequencyTable(i), static_cast<unsigned char>(i), nullptr, nullptr);
+//		}
+//	}
+//
+//	heap.print();
+//
+//	heap.MakeTree();
+//	heap.check_Tree();
+//	heap.create_coded_symbols();
+//	// tree tr;
+//	heap.print_bit_patterns();
+//
+//
+//	filename.replace(filename.find(".txt"), std::string(".txt").size(), ".huff");
+//	bitstreams bs(filename);
+//
+//	// WRITING THE HEADER
+//	for (auto ascii_value = 0; ascii_value < 256; ++ascii_value)
+//	{
+//		auto bitlength = heap.return_bit_length(ascii_value);
+//		/*if (bitlength)
+//		{
+//			for (auto pos = 0; pos < 8; ++pos)
+//			{
+//				bs.putBit(heap.return_bit_length_bit_by_bit(ascii_value, pos));
+//			}
+//		}
+//		else
+//		{*/
+//		bs.putByte(bitlength);
+//		// }
+//		// auto num_of_bytes = std::ceil(static_cast<double>(bitlength) / static_cast<double>(8));
+//		for (auto position = (bitlength - 1); position > -1; --position)
+//		{
+//			bs.putBit(heap.return_bitpattern_bit_by_bit(ascii_value, position));
+//		}
+//		bs.flush();
+//	}
+//	bs.flush();
+//
+//	// WRITING THE NUMBER OF SYMBOLS IN THE FILE
+//	auto total_characters = h.get_total_characters();
+//	bs.putLong(total_characters);
+//
+//	unsigned char ch{ 0 };
+//	unsigned int length = 0;
+//	// WRITING THE SYMBOLS
+//
+//	int bitswritten = 0;
+//
+//	// YO
+//	// THIS MIGHT NEED TO BE BIG ENDIAN
+//	for (unsigned int position_in_file = 0; position_in_file < total_characters; ++position_in_file)
+//	{
+//		ch = h.output_characters(position_in_file);
+//		length = heap.return_bit_length(static_cast<unsigned int>(ch));
+//		for (int bitposition = (length-1); bitposition > -1; --bitposition)
+//		{
+//			bs.putBit(heap.return_bitpattern_bit_by_bit(static_cast<int>(ch), bitposition));
+//			++bitswritten;
+//			std::cout << ch << " " << "bit: " << heap.return_bitpattern_bit_by_bit(static_cast<int>(ch), bitposition) << "num: " << bitswritten << std::endl;
+//		}
+//		std::cout << std::endl;
+//		bitswritten = 0;
+//	}
+//
+//
+//	// in
+//
+//	// Heap heap(huff.fre)
+//	/*Heap<int, int> heap;
+//	heap.push();
+//	heap.push();
+//	heap.push();
+//	heap.push();
+//	heap.push();*/
+//
+//	// std::cout << heap.is_empty();
+//
+//	// START OF A TEST/PLAYING AROUND SNIPPET
+//	//std::cout << filename;
+//	//std::cout << "hello test";
+//	//std::fstream file(filename);
+//	//std::string test;
+//	//*for (std::string line; getline(input, line); )
+//	//{
+//	//	...for each line in input...
+//	//}*/
+//	//char buffer{0};
+//	//// for (auto i = 0; i < 4; ++i)
+//	//// {
+//	//	std::getline(file, test);
+//	//	std::cout << test;
+//	//// }
+//	// END OF A TEST SNIPPET
+//
+//
+//	return 0;
+//}
