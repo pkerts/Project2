@@ -24,8 +24,13 @@ int Bitreader::getBit()
 
 int Bitreader::getByte()
 {
-	position = 0;
 	buffer = 0;
 	file->read(reinterpret_cast<char*>(&buffer), sizeof(unsigned char));
+	position = 8;
 	return buffer;
 }
+
+//int Bitreader::get_buffer()
+//{
+//	return buffer;
+//}
