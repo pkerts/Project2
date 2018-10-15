@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <bitset>
 
-template<typename Priority, typename Data>
+template <typename Priority, typename Data>
 class Heap
 {
 private:
@@ -18,80 +18,79 @@ private:
 		Node* left;
 		Node* right;
 	};
+
 	struct CodedSymbol
 	{
 		unsigned char length;
 		unsigned long long bit_pattern;
 	};
-	CodedSymbol coded_symbols_array[256]{0};
+
+	CodedSymbol coded_symbols_array[256]{{0, 0}};
 	std::vector<Node> data_vector_;
-	void heapify(int i);
-	Node* minimum = nullptr;
-	Node* root = nullptr;
-	int check_Tree(Node* root);
-	void create_coded_symbols(Node* Ptr, unsigned char length, unsigned long long bitpattern);
-	void delete_tree(Node* root);
+	void Heapify(int i);
+	Node* minimum_ = nullptr;
+	Node* root_ = nullptr;
+	int CheckTree(Node* ptr);
+	void CreateCodedSymbols(Node* ptr, unsigned char length, unsigned long long bitpattern);
+	void DeleteTree(Node* ptr);
 public:
-	~Heap()
-	{
-		// delete_tree(root);
-		delete minimum;
-	}
-	bool is_empty();
-	void push(Priority priority, Data data, Node* right, Node* left);
-	Node* pop();
-	int parent(int i);
-	int left_child(int i);
-	int right_child(int i);
-	int print();
-	void heapify();
-	void verify();
+	~Heap();
+
+	bool IsEmpty();
+	void Push(Priority priority, Data data, Node* left, Node* right);
+	Node* Pop();
+	static int Parent(int i);
+	static int LeftChild(int i);
+	static int RightChild(int i);
+	int Print();
+	void Heapify();
+	void Verify();
 	void MakeTree();
-	void check_Tree();
-	std::string node_dump(unsigned int i);
-	void create_coded_symbols();
-	void print_bit_patterns();
-	unsigned char return_bit_length(unsigned int i);
-	unsigned int return_bitpattern_bit_by_bit(unsigned int i, int position);
-	unsigned int return_bit_length_bit_by_bit(unsigned int i, int position);
+	void CheckTree();
+	std::string NodeDump(unsigned int i);
+	void CreateCodedSymbols();
+	void PrintBitPatterns();
+	unsigned char ReturnBitLength(unsigned int i);
+	unsigned int ReturnBitpatternBitByBit(unsigned int i, int position);
+	unsigned int ReturnBitLengthBitByBit(unsigned int i, int position);
 };
 
 template <typename Priority, typename Data>
-void Heap<Priority, Data>::push(Priority priority, Data data, Node* left, Node* right)
+void Heap<Priority, Data>::Push(Priority priority, Data data, Node* left, Node* right)
 {
-	data_vector_.push_back({ priority, data, left, right });
-	heapify(data_vector_.size() - 1);
+	data_vector_.push_back({priority, data, left, right});
+	Heapify(data_vector_.size() - 1);
 }
 
 template <typename Priority, typename Data>
-typename Heap<Priority, Data>::Node* Heap<Priority, Data>::pop()
+typename Heap<Priority, Data>::Node* Heap<Priority, Data>::Pop()
 {
 	auto min_priority = std::min_element(data_vector_.begin(), data_vector_.end(),
-		[](Node const& lhs, Node const& rhs) {return lhs.priority < rhs.priority; });
-	minimum = new Node{ *min_priority };
+	                                     [](Node const& lhs, Node const& rhs) { return lhs.priority < rhs.priority; });
+	minimum_ = new Node{*min_priority};
 	data_vector_.erase(min_priority);
 	for (const auto i : data_vector_)
 	{
-		if (i.priority < minimum->priority)
+		if (i.priority < minimum_->priority)
 		{
-			std::cout << "Uhoh" << std::endl;
+			std::cout << "Uh oh" << std::endl;
 			for (auto a = 0; a < 4; ++a)
 			{
 				std::cout << "----" << std::endl;
 			}
 		}
 	}
-	return minimum;
+	return minimum_;
 }
 
-template<typename Priority, typename Data>
-int Heap<Priority, Data>::parent(int i)
+template <typename Priority, typename Data>
+int Heap<Priority, Data>::Parent(int i)
 {
 	return ((i - 1) / 2);
 }
 
 template <typename Priority, typename Data>
-int Heap<Priority, Data>::left_child(int i)
+int Heap<Priority, Data>::LeftChild(int i)
 {
 	if (i == 0) // root case
 	{
@@ -101,7 +100,7 @@ int Heap<Priority, Data>::left_child(int i)
 }
 
 template <typename Priority, typename Data>
-int Heap<Priority, Data>::right_child(int i)
+int Heap<Priority, Data>::RightChild(int i)
 {
 	if (i == 0) // root case
 	{
@@ -111,18 +110,18 @@ int Heap<Priority, Data>::right_child(int i)
 }
 
 template <typename Priority, typename Data>
-int Heap<Priority, Data>::print()
+int Heap<Priority, Data>::Print()
 {
-	if (is_empty())
+	if (IsEmpty())
 	{
 		std::cerr << "Empty vector" << std::endl;
 		return 1;
 	}
 	std::cout << "root: ";
 
-	int level = 1;
-	int a = 0;
-	int b = level;
+	auto level = 1;
+	auto a = 0;
+	auto b = level;
 
 	for (unsigned int i = 0; i < data_vector_.size(); ++i)
 	{
@@ -133,7 +132,7 @@ int Heap<Priority, Data>::print()
 			level++;
 			std::cout << " level " << level << ":  ";
 		}
-		std::cout << node_dump(i) << " ";
+		std::cout << NodeDump(i) << " ";
 		a++;
 	}
 	std::cout << std::endl;
@@ -141,18 +140,18 @@ int Heap<Priority, Data>::print()
 }
 
 template <typename Priority, typename Data>
-void Heap<Priority, Data>::heapify()
+void Heap<Priority, Data>::Heapify()
 {
-	heapify(data_vector_.size());
+	Heapify(data_vector_.size());
 }
 
 template <typename Priority, typename Data>
-void Heap<Priority, Data>::verify()
+void Heap<Priority, Data>::Verify()
 {
-	int tru = 0;
-	for (auto i = data_vector_.size()-1; i > 0; --i)
+	auto tru = 0;
+	for (auto i = data_vector_.size() - 1; i > 0; --i)
 	{
-		if (data_vector_[parent(i)].priority < data_vector_[i].priority)
+		if (data_vector_[Parent(i)].priority < data_vector_[i].priority)
 		{
 			std::cout << "FALSE" << std::endl;
 		}
@@ -169,26 +168,26 @@ void Heap<Priority, Data>::MakeTree()
 {
 	while (data_vector_.size() > 1)
 	{
-		Node* a = new Node{ *pop() };
+		auto* a = new Node{*Pop()};
 		auto b = a->priority;
-		Node* d = new Node{ *pop() };
+		auto* d = new Node{*Pop()};
 		auto e = d->priority;
 
-		push((b + e), '\0', a, d);
+		Push((b + e), '\0', a, d);
 	}
-	root = &data_vector_.front();
+	root_ = &data_vector_.front();
 }
 
 template <typename Priority, typename Data>
-void Heap<Priority, Data>::check_Tree()
+void Heap<Priority, Data>::CheckTree()
 {
-	check_Tree(root);
+	CheckTree(root_);
 }
 
 template <typename Priority, typename Data>
-std::string Heap<Priority, Data>::node_dump(unsigned int i)
+std::string Heap<Priority, Data>::NodeDump(unsigned int i)
 {
-	std::string dump{ "" };
+	std::string dump;
 	if ((i < 0) | (i >= data_vector_.size()))
 	{
 		return dump;
@@ -207,52 +206,53 @@ std::string Heap<Priority, Data>::node_dump(unsigned int i)
 }
 
 template <typename Priority, typename Data>
-void Heap<Priority, Data>::heapify(int i)
+void Heap<Priority, Data>::Heapify(int i)
 {
 	while (i != 0)
 	{
-		if (data_vector_[parent(i)].priority > data_vector_[i].priority)
+		if (data_vector_[Parent(i)].priority > data_vector_[i].priority)
 		{
-			std::swap(data_vector_[parent(i)], data_vector_[i]);
+			std::swap(data_vector_[Parent(i)], data_vector_[i]);
 		}
-		i = parent(i);
-		heapify(i);
+		i = Parent(i);
+		Heapify(i);
 	}
 }
 
 template <typename Priority, typename Data>
-int Heap<Priority, Data>::check_Tree(Node* Ptr)
+int Heap<Priority, Data>::CheckTree(Node* ptr)
 {
-	if (Ptr->left)
+	if (ptr->left)
 	{
-		check_Tree(Ptr->left);
+		CheckTree(ptr->left);
 	}
-	if (Ptr->data)
+	if (ptr->data)
 	{
-		std::cout << Ptr->data << std::endl;
+		std::cout << ptr->data << std::endl;
 	}
-	if (Ptr->right)
+	if (ptr->right)
 	{
-		check_Tree(Ptr->right);
+		CheckTree(ptr->right);
 	}
 	return 0;
 }
 
 template <typename Priority, typename Data>
-void Heap<Priority, Data>::create_coded_symbols()
+void Heap<Priority, Data>::CreateCodedSymbols()
 {
-	create_coded_symbols(root, 0, 0);
+	CreateCodedSymbols(root_, 0, 0);
 }
 
 template <typename Priority, typename Data>
-void Heap<Priority, Data>::print_bit_patterns()
+void Heap<Priority, Data>::PrintBitPatterns()
 {
 	for (auto i = 0; i < 256; ++i)
 	{
 		if (coded_symbols_array[i].length)
 		{
-			std::bitset<12> bb{ coded_symbols_array[i].bit_pattern };
-			std::cout << "'" << static_cast<unsigned char>(i) << "'" << " " <<  "length: " << static_cast<int>(coded_symbols_array[i].length) << " ";
+			std::bitset<12> bb{coded_symbols_array[i].bit_pattern};
+			std::cout << "'" << static_cast<unsigned char>(i) << "'" << " " << "length: " << static_cast<int>(
+				coded_symbols_array[i].length) << " ";
 			std::cout << bb.to_string() << std::endl;
 		}
 		std::cout << i << std::endl;
@@ -260,13 +260,13 @@ void Heap<Priority, Data>::print_bit_patterns()
 }
 
 template <typename Priority, typename Data>
-unsigned char Heap<Priority, Data>::return_bit_length(unsigned i)
+unsigned char Heap<Priority, Data>::ReturnBitLength(unsigned i)
 {
 	return coded_symbols_array[i].length;
 }
 
 template <typename Priority, typename Data>
-unsigned Heap<Priority, Data>::return_bitpattern_bit_by_bit(unsigned i, int position)
+unsigned Heap<Priority, Data>::ReturnBitpatternBitByBit(unsigned i, const int position)
 {
 	auto a = coded_symbols_array[i].bit_pattern;
 	unsigned long long b = 1;
@@ -279,7 +279,7 @@ unsigned Heap<Priority, Data>::return_bitpattern_bit_by_bit(unsigned i, int posi
 }
 
 template <typename Priority, typename Data>
-unsigned Heap<Priority, Data>::return_bit_length_bit_by_bit(unsigned i, int position)
+unsigned Heap<Priority, Data>::ReturnBitLengthBitByBit(unsigned i, const int position)
 {
 	auto a = coded_symbols_array[i].length;
 	unsigned long long b = 1;
@@ -292,50 +292,54 @@ unsigned Heap<Priority, Data>::return_bit_length_bit_by_bit(unsigned i, int posi
 }
 
 template <typename Priority, typename Data>
-void Heap<Priority, Data>::create_coded_symbols(Node* Ptr, unsigned char length, unsigned long long bitpattern)
+void Heap<Priority, Data>::CreateCodedSymbols(Node* ptr, unsigned char length, const unsigned long long bitpattern)
 {
-	if (Ptr == nullptr)
+	if (ptr == nullptr)
 	{
 		return;
 	}
 
-	if (!(Ptr->left) && !(Ptr->right))
+	if (!(ptr->left) && !(ptr->right))
 	{
 		// TEST
-		std::bitset<8> bp{ bitpattern };
-		std::cout << "\"" << Ptr->data << "\"  " << "\"" << static_cast<char>(Ptr->data) << "\"  " << "\"" << static_cast<int>(Ptr->priority) << "\"  " << "\"" << bp.to_string() << "\"  " << "\"" << static_cast<int>(length) << "\"" << std::endl;
-		CodedSymbol cs{ length, bitpattern };
-		coded_symbols_array[static_cast<int>(Ptr->data)] = cs;
+		std::bitset<8> bp{bitpattern};
+		std::cout << "\"" << ptr->data << "\"  " << "\"" << static_cast<char>(ptr->data) << "\"  " << "\"" <<
+			static_cast<int>(ptr->priority) << "\"  " << "\"" << bp.to_string() << "\"  " << "\"" << static_cast<int>(
+				length) << "\"" << std::endl;
+		CodedSymbol cs{length, bitpattern};
+		coded_symbols_array[static_cast<int>(ptr->data)] = cs;
 	}
 
 	length++;
-	if (Ptr->left)
-		create_coded_symbols(Ptr->left, length, bitpattern << 1);
-	if (Ptr->right)
-		create_coded_symbols(Ptr->right, length, (bitpattern << 1) | 1);
+	if (ptr->left)
+		CreateCodedSymbols(ptr->left, length, bitpattern << 1);
+	if (ptr->right)
+		CreateCodedSymbols(ptr->right, length, (bitpattern << 1) | 1);
 }
 
 template <typename Priority, typename Data>
-void Heap<Priority, Data>::delete_tree(Node* Ptr)
+void Heap<Priority, Data>::DeleteTree(Node* ptr)
 {
-	if (Ptr->left)
+	if (ptr->left)
 	{
-		delete_tree(Ptr->left);
-
+		DeleteTree(ptr->left);
 	}
-	if (Ptr->right)
+	if (ptr->right)
 	{
-		delete_tree(Ptr->right);
+		DeleteTree(ptr->right);
 	}
-	delete Ptr;
+	delete ptr;
 }
 
 template <typename Priority, typename Data>
-bool Heap<Priority, Data>::is_empty()
+Heap<Priority, Data>::~Heap()
 {
-	if (data_vector_.size())
-	{
-		return false;
-	}
-	return true;
+	// delete_tree(root);
+	delete minimum_;
+}
+
+template <typename Priority, typename Data>
+bool Heap<Priority, Data>::IsEmpty()
+{
+	return data_vector_.empty();
 }

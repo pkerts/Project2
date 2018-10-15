@@ -4,14 +4,13 @@
 class Bitreader
 {
 public:
-	Bitreader(std::string filename);
+	explicit Bitreader(const std::string& filename);
 	~Bitreader();
 	int getBit();
 	int getByte();
-	int get_buffer() { return buffer; };
+	int getBuffer() const;
 private:
-	unsigned char buffer{ 0 };
-	int position{ 0 };
-	std::ifstream* file;
+	unsigned char buffer_{0};
+	int position_{0};
+	std::ifstream* file_;
 };
-

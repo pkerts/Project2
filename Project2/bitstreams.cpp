@@ -4,43 +4,22 @@
 #include <bitset>
 #include <iostream>
 
-
-bitstreams::bitstreams(std::string filename) : file(new std::ofstream(filename, /*std::ios::in | std::ios::out | */std::ios::binary))
+Bitstreams::Bitstreams(const std::string& filename) : file(new std::ofstream(filename, std::ios::binary))
 {
 }
 
-
-bitstreams::~bitstreams()
+Bitstreams::~Bitstreams()
 {
-	flush();
+	Flush();
 	delete file;
 }
 
-//int bitstreams::getBit()
-//{
-//	if (position == 0)
-//	{
-//		file->read(reinterpret_cast<char*>(&buffer), sizeof(unsigned char));
-//		position = 8;
-//	}
-//	position--;
-//	int bit = (buffer >> position) & 1;
-//	return bit;
-//}
-
-//int bitstreams::getByte()
-//{
-//	position = 0;
-//	buffer = 0;
-//	file->read(reinterpret_cast<char*>(&buffer), sizeof(unsigned char));
-//	return buffer;
-//}
-
-int bitstreams::putBit(unsigned int bit)
+int Bitstreams::putBit(const unsigned int bit)
 {
 	buffer = (buffer << 1) | (bit & 1);
 	position++;
-	if (position > 7) {
+	if (position > 7)
+	{
 		file->write(reinterpret_cast<char*>(&buffer), sizeof(unsigned char));
 		position = 0;
 		buffer = 0;
@@ -48,26 +27,20 @@ int bitstreams::putBit(unsigned int bit)
 	return 0;
 }
 
-int bitstreams::putByte(unsigned char byte)
+int Bitstreams::putByte(unsigned char byte)
 {
-	flush();
+	Flush();
 	file->write(reinterpret_cast<char*>(&byte), sizeof(unsigned char));
 	return 0;
 }
 
-int bitstreams::putLong(unsigned long total)
+int Bitstreams::putLong(uint32_t total) const
 {
-	/*std::cout << std::endl;
-	unsigned char mask = { 0b11111111 };
-	for (auto i = 3; i >= 0; --i)
-	{
-		putByte(total >> (8 * i) & mask);
-	}*/
-	file->write(reinterpret_cast<char*>(&total), sizeof(unsigned long));
+	file->write(reinterpret_cast<char*>(&total), sizeof(uint32_t));
 	return 0;
 }
 
-void bitstreams::flush()
+void Bitstreams::Flush()
 {
 	if (buffer || position)
 	{

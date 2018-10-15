@@ -5,59 +5,58 @@
 #include <fstream>
 
 
-Puff::Puff()
+Puff::Puff(): root_(nullptr), position_(nullptr)
 {
 }
 
 
 Puff::~Puff()
-{
-}
+= default;
 
-int Puff::filltree(unsigned int bit)
+int Puff::Filltree(unsigned int bit)
 {
-	if (!root)
+	if (!root_)
 	{
-		root = new Node{ '\0', nullptr, nullptr };
-		position = root;
+		root_ = new Node{'\0', nullptr, nullptr};
+		position_ = root_;
 	}
 	if (bit == 0)
 	{
-		if (!position->left)
+		if (!position_->left)
 		{
-			position->left = new Node{ '\0', nullptr, nullptr };
+			position_->left = new Node{'\0', nullptr, nullptr};
 		}
-		position = position->left;
+		position_ = position_->left;
 	}
 	else
 	{
-		if (!position->right)
+		if (!position_->right)
 		{
-			position->right = new Node{ '\0', nullptr, nullptr };
+			position_->right = new Node{'\0', nullptr, nullptr};
 		}
-		position = position->right;
+		position_ = position_->right;
 	}
 	return 0;
 }
 
-int Puff::set_node(char data)
+int Puff::SetNode(char data)
 {
-	position->data = data;
-	position = root;
+	position_->data = data;
+	position_ = root_;
 	return 0;
 }
 
-int Puff::checktree()
+int Puff::Checktree() const
 {
-	if (!root)
+	if (!root_)
 	{
 		std::cerr << "Nothing in tree" << std::endl;
 		return 1;
 	}
-	return checktree(root, 0);
+	return Checktree(root_, 0);
 }
 
-int Puff::checktree(Node* ptr, int status)
+int Puff::Checktree(Node* ptr, int status)
 {
 	if (ptr == nullptr)
 	{
@@ -87,53 +86,46 @@ int Puff::checktree(Node* ptr, int status)
 		}
 	}
 
-	checktree(ptr->left, status);
-	checktree(ptr->right, status);
+	Checktree(ptr->left, status);
+	Checktree(ptr->right, status);
+	return status;
 }
 
-//int main(int argc, char** argv)
-//{
-//	std::string filename = argv[1];
-//	Bitreader br(filename);
-//
-//	filename.replace(filename.find(".huff"), std::string(".huff").size(), ".puff");
-//	std::ofstream puff(filename, std::ios::binary);
-//
-//	// TEST ok it works
-//	/*for (auto i = 0; i < 269; ++i)
-//	{
-//		auto a = br.getByte();
-//		puff.write((char*)&a, sizeof (char));
-//	}*/
-//
-//	Puff p;
-//
-//	auto ascii_value = -1;
-//	auto length = 0;
-//	while (ascii_value != 255)
-//	{
-//		br.getByte();
-//		ascii_value++;
-//		if (br.get_buffer())
-//		{
-//			length = br.get_buffer();
-//			br.getByte();
-//			std::cout << static_cast<char>(ascii_value) << "   ";
-//			for (auto i = 0; i < length; i++)
-//			{
-//				p.filltree(br.getBit());
-//			}
-//			p.set_node(static_cast<char>(ascii_value));
-//			std::cout << std::endl;
-//		}
-//	}
-//
-//	if (p.checktree() != 0)
-//	{
-//		return EXIT_FAILURE;
-//	}
-//
-//	// length = br.
-//
-//	return 0;
-//}
+int main(int argc, char** argv)
+{
+	std::string filename = argv[1];
+	Bitreader br(filename);
+
+	filename.replace(filename.find(".huff"), std::string(".huff").size(), ".puff");
+	std::ofstream puff(filename, std::ios::binary);
+
+	Puff p;
+
+	auto ascii_value = -1;
+	while (ascii_value != 255)
+	{
+		br.getByte();
+		ascii_value++;
+		if (br.getBuffer())
+		{
+			const int length = br.getBuffer();
+			br.getByte();
+			std::cout << static_cast<char>(ascii_value) << "   ";
+			for (auto i = 0; i < length; i++)
+			{
+				p.Filltree(br.getBit());
+			}
+			p.SetNode(static_cast<char>(ascii_value));
+			std::cout << std::endl;
+		}
+	}
+
+	if (p.Checktree() != 0)
+	{
+		return EXIT_FAILURE;
+	}
+
+	// length = br.getLength();
+
+	return 0;
+}

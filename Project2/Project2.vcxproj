@@ -125,15 +125,12 @@
     <ClInclude Include="Heap.h" />
     <ClInclude Include="huff.h" />
     <ClInclude Include="puff.h" />
-    <ClInclude Include="tree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bitreader.cpp" />
     <ClCompile Include="bitstreams.cpp" />
-    <ClCompile Include="Heap.cpp" />
     <ClCompile Include="huff.cpp" />
     <ClCompile Include="puff.cpp" />
-    <ClCompile Include="tree.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

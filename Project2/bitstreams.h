@@ -2,21 +2,18 @@
 #include <fstream>
 #include <string>
 
-class bitstreams
+class Bitstreams
 {
 public:
-	bitstreams(std::string filename);
-	~bitstreams();
+	Bitstreams(const std::string& filename);
+	~Bitstreams();
 
-	// int getBit();
-	// int getByte();
 	int putBit(unsigned int bit);
 	int putByte(unsigned char byte);
-	int putLong(unsigned long total);
-	void flush();
+	int putLong(uint32_t total) const;
+	void Flush();
 private:
-	unsigned char buffer{ 0 };
-	int position{ 0 };
+	unsigned char buffer{0};
+	int position{0};
 	std::ofstream* file;
 };
-

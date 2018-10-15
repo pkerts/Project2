@@ -9,14 +9,14 @@ private:
 		Node* left;
 		Node* right;
 	};
-	Node* root;
-	Node* position;
-	int checktree(Node* ptr, int status);
+
+	Node* root_;
+	Node* position_;
+	static int Checktree(Node* ptr, int status);
 public:
 	Puff();
 	~Puff();
-	int filltree(unsigned int bit);
-	int set_node(char data);
-	int checktree();
+	int Filltree(unsigned int bit);
+	int SetNode(char data);
+	int Checktree() const;
 };
-
