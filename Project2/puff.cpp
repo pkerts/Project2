@@ -13,7 +13,7 @@ Puff::Puff(): root_(nullptr), position_(nullptr)
 Puff::~Puff()
 = default;
 
-int Puff::Filltree(unsigned int bit)
+int Puff::Filltree(const unsigned int bit)
 {
 	if (!root_)
 	{
@@ -39,7 +39,7 @@ int Puff::Filltree(unsigned int bit)
 	return 0;
 }
 
-int Puff::SetNode(char data)
+int Puff::SetNode(const char data)
 {
 	position_->data = data;
 	position_ = root_;
@@ -77,7 +77,7 @@ int Puff::Checktree(Node* ptr, int status)
 			status = 1;
 		}
 	}
-	if (ptr->data) // redundant if?
+	if (ptr->data)
 	{
 		if (ptr->left || ptr->right)
 		{

@@ -84,13 +84,13 @@ typename Heap<Priority, Data>::Node* Heap<Priority, Data>::Pop()
 }
 
 template <typename Priority, typename Data>
-int Heap<Priority, Data>::Parent(int i)
+int Heap<Priority, Data>::Parent(const int i)
 {
 	return ((i - 1) / 2);
 }
 
 template <typename Priority, typename Data>
-int Heap<Priority, Data>::LeftChild(int i)
+int Heap<Priority, Data>::LeftChild(const int i)
 {
 	if (i == 0) // root case
 	{
@@ -100,7 +100,7 @@ int Heap<Priority, Data>::LeftChild(int i)
 }
 
 template <typename Priority, typename Data>
-int Heap<Priority, Data>::RightChild(int i)
+int Heap<Priority, Data>::RightChild(const int i)
 {
 	if (i == 0) // root case
 	{

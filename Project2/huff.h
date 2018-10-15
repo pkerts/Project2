@@ -9,7 +9,7 @@ public:
 	explicit Huff(const std::string& filename); // Create Huff object with filename as string parameter
 	~Huff(); // Dtor which deletes ifstream pointer
 	void BuildFrequencyTable(); // Single function so far which builds frequency table from file
-	unsigned int FrequencyTable(const int i);
+	unsigned int FrequencyTable(int i);
 	unsigned char OutputCharacters(unsigned long position_in_file) const;
 	unsigned long GetTotalCharacters() const;
 private:

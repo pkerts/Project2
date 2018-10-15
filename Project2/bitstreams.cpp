@@ -4,25 +4,25 @@
 #include <bitset>
 #include <iostream>
 
-Bitstreams::Bitstreams(const std::string& filename) : file(new std::ofstream(filename, std::ios::binary))
+Bitstreams::Bitstreams(const std::string& filename) : file_(new std::ofstream(filename, std::ios::binary))
 {
 }
 
 Bitstreams::~Bitstreams()
 {
 	Flush();
-	delete file;
+	delete file_;
 }
 
 int Bitstreams::putBit(const unsigned int bit)
 {
-	buffer = (buffer << 1) | (bit & 1);
-	position++;
-	if (position > 7)
+	buffer_ = (buffer_ << 1) | (bit & 1);
+	position_++;
+	if (position_ > 7)
 	{
-		file->write(reinterpret_cast<char*>(&buffer), sizeof(unsigned char));
-		position = 0;
-		buffer = 0;
+		file_->write(reinterpret_cast<char*>(&buffer_), sizeof(unsigned char));
+		position_ = 0;
+		buffer_ = 0;
 	}
 	return 0;
 }
@@ -30,23 +30,23 @@ int Bitstreams::putBit(const unsigned int bit)
 int Bitstreams::putByte(unsigned char byte)
 {
 	Flush();
-	file->write(reinterpret_cast<char*>(&byte), sizeof(unsigned char));
+	file_->write(reinterpret_cast<char*>(&byte), sizeof(unsigned char));
 	return 0;
 }
 
 int Bitstreams::putLong(uint32_t total) const
 {
-	file->write(reinterpret_cast<char*>(&total), sizeof(uint32_t));
+	file_->write(reinterpret_cast<char*>(&total), sizeof(uint32_t));
 	return 0;
 }
 
 void Bitstreams::Flush()
 {
-	if (buffer || position)
+	if (buffer_ || position_)
 	{
-		buffer <<= (8 - position);
-		file->write(reinterpret_cast<char*>(&buffer), sizeof(unsigned char));
-		position = 0;
-		buffer = 0;
+		buffer_ <<= (8 - position_);
+		file_->write(reinterpret_cast<char*>(&buffer_), sizeof(unsigned char));
+		position_ = 0;
+		buffer_ = 0;
 	}
 }

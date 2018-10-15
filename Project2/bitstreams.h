@@ -5,7 +5,7 @@
 class Bitstreams
 {
 public:
-	Bitstreams(const std::string& filename);
+	explicit Bitstreams(const std::string& filename);
 	~Bitstreams();
 
 	int putBit(unsigned int bit);
@@ -13,7 +13,7 @@ public:
 	int putLong(uint32_t total) const;
 	void Flush();
 private:
-	unsigned char buffer{0};
-	int position{0};
-	std::ofstream* file;
+	unsigned char buffer_{0};
+	int position_{0};
+	std::ofstream* file_;
 };

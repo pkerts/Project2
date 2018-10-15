@@ -130,7 +130,7 @@ int main(int argc, char** argv) // The compiled code will take an argument
 
 	for (unsigned int position_in_file = 0; position_in_file < total_characters; ++position_in_file)
 	{
-		const unsigned char ch = h.OutputCharacters(position_in_file);
+		const auto ch = h.OutputCharacters(position_in_file);
 		const unsigned int length = heap.ReturnBitLength(static_cast<unsigned int>(ch));
 		for (int bitposition = (length - 1); bitposition > -1; --bitposition)
 		{
