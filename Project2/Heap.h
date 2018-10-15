@@ -23,7 +23,7 @@ private:
 		unsigned char length;
 		unsigned long long bit_pattern;
 	};
-	CodedSymbol coded_symbols_array[256];
+	CodedSymbol coded_symbols_array[256]{0};
 	std::vector<Node> data_vector_;
 	void heapify(int i);
 	Node* minimum = nullptr;
@@ -255,6 +255,7 @@ void Heap<Priority, Data>::print_bit_patterns()
 			std::cout << "'" << static_cast<unsigned char>(i) << "'" << " " <<  "length: " << static_cast<int>(coded_symbols_array[i].length) << " ";
 			std::cout << bb.to_string() << std::endl;
 		}
+		std::cout << i << std::endl;
 	}
 }
 

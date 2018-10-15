@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 
+
 Puff::Puff()
 {
 }
@@ -46,42 +47,93 @@ int Puff::set_node(char data)
 	return 0;
 }
 
-int main(int argc, char** argv)
+int Puff::checktree()
 {
-	std::string filename = argv[1];
-	Bitreader br(filename);
-
-	filename.replace(filename.find(".huff"), std::string(".huff").size(), ".puff");
-	std::ofstream puff(filename, std::ios::binary);
-
-	// TEST ok it works
-	/*for (auto i = 0; i < 269; ++i)
+	if (!root)
 	{
-		auto a = br.getByte();
-		puff.write((char*)&a, sizeof (char));
-	}*/
+		std::cerr << "Nothing in tree" << std::endl;
+		return 1;
+	}
+	return checktree(root, 0);
+}
 
-	Puff p;
-
-	auto ascii_value = -1;
-	auto length = 0;
-	while (ascii_value != 255)
+int Puff::checktree(Node* ptr, int status)
+{
+	if (ptr == nullptr)
 	{
-		br.getByte();
-		ascii_value++;
-		if (br.get_buffer())
+		return status;
+	}
+
+	if (ptr->data == '\0')
+	{
+		if (!ptr->left)
 		{
-			length = br.get_buffer();
-			br.getByte();
-			std::cout << static_cast<char>(ascii_value) << "   ";
-			for (auto i = 0; i < length; i++)
-			{
-				p.filltree(br.getBit());
-			}
-			p.set_node(static_cast<char>(ascii_value));
-			std::cout << std::endl;
+			// TRY PRINTING ADDRESS HERE
+			std::cerr << "Missing left child" << std::endl;
+			status = 1;
+		}
+		if (!ptr->right)
+		{
+			std::cerr << "Missing right child" << std::endl;
+			status = 1;
+		}
+	}
+	if (ptr->data) // redundant if?
+	{
+		if (ptr->left || ptr->right)
+		{
+			std::cerr << "Data detected in a non-leaf node" << std::endl;
+			status = 2;
 		}
 	}
 
-	return 0;
+	checktree(ptr->left, status);
+	checktree(ptr->right, status);
 }
+
+//int main(int argc, char** argv)
+//{
+//	std::string filename = argv[1];
+//	Bitreader br(filename);
+//
+//	filename.replace(filename.find(".huff"), std::string(".huff").size(), ".puff");
+//	std::ofstream puff(filename, std::ios::binary);
+//
+//	// TEST ok it works
+//	/*for (auto i = 0; i < 269; ++i)
+//	{
+//		auto a = br.getByte();
+//		puff.write((char*)&a, sizeof (char));
+//	}*/
+//
+//	Puff p;
+//
+//	auto ascii_value = -1;
+//	auto length = 0;
+//	while (ascii_value != 255)
+//	{
+//		br.getByte();
+//		ascii_value++;
+//		if (br.get_buffer())
+//		{
+//			length = br.get_buffer();
+//			br.getByte();
+//			std::cout << static_cast<char>(ascii_value) << "   ";
+//			for (auto i = 0; i < length; i++)
+//			{
+//				p.filltree(br.getBit());
+//			}
+//			p.set_node(static_cast<char>(ascii_value));
+//			std::cout << std::endl;
+//		}
+//	}
+//
+//	if (p.checktree() != 0)
+//	{
+//		return EXIT_FAILURE;
+//	}
+//
+//	// length = br.
+//
+//	return 0;
+//}
