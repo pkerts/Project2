@@ -34,9 +34,11 @@ int Bitreader::getBuffer() const
 	return buffer_;
 }
 
-uint32_t Bitreader::getLength() const
+uint32_t Bitreader::getLength()
 {
 	uint32_t length = 0;
 	file_->read(reinterpret_cast<char*>(&length), sizeof(uint32_t));
+	buffer_ = 0;
+	position_ = 0;
 	return length;
 }

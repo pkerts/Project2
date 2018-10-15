@@ -1,4 +1,5 @@
 #pragma once
+#include <fstream>
 
 class Puff
 {
@@ -19,4 +20,5 @@ public:
 	int Filltree(unsigned int bit);
 	int SetNode(char data);
 	int Checktree() const;
+	char TraverseTree(unsigned int bit);
 };

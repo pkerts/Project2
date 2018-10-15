@@ -9,7 +9,7 @@ public:
 	int getBit();
 	int getByte();
 	int getBuffer() const;
-	uint32_t getLength() const;
+	uint32_t getLength();
 private:
 	unsigned char buffer_{0};
 	int position_{0};

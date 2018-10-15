@@ -56,6 +56,26 @@ int Puff::Checktree() const
 	return Checktree(root_, 0);
 }
 
+char Puff::TraverseTree(const unsigned bit)
+{
+	if (bit == 0)
+	{
+		position_ = position_->left;
+	}
+	else if (bit == 1)
+	{
+		position_ = position_->right;
+	}
+	const auto ch = position_->data;
+
+	if (position_->data)
+	{
+		position_ = root_;
+	}
+
+	return ch;
+}
+
 int Puff::Checktree(Node* ptr, int status)
 {
 	if (ptr == nullptr)
@@ -96,9 +116,6 @@ int main(int argc, char** argv)
 	std::string filename = argv[1];
 	Bitreader br(filename);
 
-	filename.replace(filename.find(".huff"), std::string(".huff").size(), ".puff");
-	std::ofstream puff(filename, std::ios::binary);
-
 	Puff p;
 
 	auto ascii_value = -1;
@@ -125,7 +142,20 @@ int main(int argc, char** argv)
 		return EXIT_FAILURE;
 	}
 
-	// length = br.getLength();
+	filename.replace(filename.find(".huff"), std::string(".huff").size(), ".puff");
+	std::ofstream puff(filename, std::ios::binary);
+
+	const auto length = br.getLength();
+
+	for (uint32_t i = 0; i < length; ++i)
+	{
+		char DecodedValue = '\0';
+		while (!DecodedValue)
+		{
+			DecodedValue = p.TraverseTree(br.getBit());
+		}
+		puff.put(DecodedValue);
+	}
 
 	return 0;
 }
